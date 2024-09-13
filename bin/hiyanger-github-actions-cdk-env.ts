@@ -15,7 +15,7 @@ new MyStack(app, 'DevOtsukareStack', {
 });
 
 // 本番環境のスタック
-new MyStack(app, 'ProdOtsukareStack', {
+new MyStack(app, 'PrdOtsukareStack', {
   envName: 'prd',
   env: { 
     account: process.env.CDK_DEFAULT_ACCOUNT, 
