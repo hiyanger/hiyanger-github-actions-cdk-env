@@ -6,6 +6,10 @@ on:
         - develop
         - master
   pull_request:
+    branches:
+        - develop
+        - master
+
 jobs:
   aws_cdk:
     runs-on: ubuntu-latest
@@ -32,17 +36,23 @@ jobs:
       - name: CDK Diff Check
         if: github.event_name == 'pull_request'
         run: |
-          if [[ ${{ github.base_ref }} == 'master' ]]; then
+          if [[ ${{ github.base_ref }} == "master" ]]; then
             npx cdk diff --context env=prod
-          else
+          elif [[ ${{ github.base_ref }} == "develop" ]]; then
             npx cdk diff --context env=dev
+          else
+            echo "Unsupported branch for pull request"
+            exit 1
           fi
 
       - name: CDK Deploy
         if: github.event_name == 'push'
         run: |
-          if [[ ${{ github.base_ref }} == 'master' ]]; then
+          if [[ ${{ github.ref }} == "refs/heads/master" ]]; then
             npx cdk deploy --context env=prod
-          else
+          elif [[ ${{ github.ref }} == "refs/heads/develop" ]]; then
             npx cdk deploy --context env=dev
+          else
+            echo "Unsupported branch for push"
+            exit 1
           fi
