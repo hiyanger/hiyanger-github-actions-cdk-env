@@ -1,16 +1,22 @@
 import * as cdk from 'aws-cdk-lib';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
-export class HiyangerGithubActionsCdkEnvStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+// 環境を定義するインターフェース
+export interface EnvProps extends cdk.StackProps {
+  envName: string;
+}
+
+export class MyStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: EnvProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'HiyangerGithubActionsCdkEnvQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    // S3バケットの作成
+    new s3.Bucket(this, 'MyBucket', {
+      bucketName: `${props.envName}-my-unique-bucket-name-hiyanger-xx`,
+      versioned: true,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      removalPolicy: cdk.RemovalPolicy.DESTROY
+    });
   }
 }
