@@ -1,0 +1,52 @@
+name: cdk
+
+on:
+  push:
+    branches:
+        - develop
+        - master
+  pull_request:
+    branches:
+        - develop
+        - master
+
+jobs:
+  aws_cdk:
+    runs-on: ubuntu-latest
+    env: 
+      AWS_REGION: "ap-northeast-1"
+    
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup dependencies
+        run: npm ci
+
+      - name: Assume Role
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_ARN }} 
+          aws-region: ${{ env.AWS_REGION }}
+          
+      - name: CDK Diff (Pull Request)
+        if: github.event_name == 'pull_request'
+        run: |
+          if [[ ${{ github.base_ref }} == "develop" ]]; then
+            npx cdk diff DevOtsukareStack
+          elif [[ ${{ github.base_ref }} == "master" ]]; then
+            npx cdk diff PrdOtsukareStack
+          fi
+
+      - name: CDK Deploy (Push)
+        if: github.event_name == 'push'
+        run: |
+          if [[ ${{ github.ref }} == "refs/heads/develop" ]]; then
+            npx cdk deploy DevOtsukareStack
+          elif [[ ${{ github.ref }} == "refs/heads/master" ]]; then
+            npx cdk deploy PrdOtsukareStack
+          fi
