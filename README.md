@@ -1,3 +1,14 @@
+# 動作
+developブランチへプルリク Devスタックでdiff
+developブランチへマージ Devスタックでdeploy
+リソース名はdev-XXX
+
+masterブランチへプルリク Devスタックでdiff
+masterブランチへマージ Devスタックでdeploy
+リソース名はprd-XXX
+
+https://zenn.dev/hiyanger/scraps/0d0118b7d9847b
+
 # Welcome to your CDK TypeScript project
 
 This is a blank project for CDK development with TypeScript.
