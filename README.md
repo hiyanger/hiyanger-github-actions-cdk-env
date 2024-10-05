@@ -1,10 +1,16 @@
 # 動作
+## develop
 developブランチへプルリク Devスタックでdiff
+
 developブランチへマージ Devスタックでdeploy
+
 リソース名はdev-XXX
 
+## master
 masterブランチへプルリク Devスタックでdiff
+
 masterブランチへマージ Devスタックでdeploy
+
 リソース名はprd-XXX
 
 https://zenn.dev/hiyanger/scraps/0d0118b7d9847b
