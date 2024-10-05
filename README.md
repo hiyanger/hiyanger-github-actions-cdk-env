@@ -14,6 +14,7 @@ masterブランチへマージ Devスタックでdeploy
 リソース名はprd-XXX
 
 ※参考
+
 https://zenn.dev/hiyanger/scraps/0d0118b7d9847b
 
 # Welcome to your CDK TypeScript project
