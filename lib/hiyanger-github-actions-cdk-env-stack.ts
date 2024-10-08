@@ -14,7 +14,6 @@ export class MyStack extends cdk.Stack {
     // S3バケットの作成
     new s3.Bucket(this, 'MyBucket', {
       bucketName: `${props.envName}-my-unique-bucket-name-hiyanger-xx`,
-      versioned: true,
       encryption: s3.BucketEncryption.S3_MANAGED,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
