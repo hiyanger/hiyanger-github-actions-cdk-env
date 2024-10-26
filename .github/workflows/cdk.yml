@@ -46,7 +46,7 @@ jobs:
         if: github.event_name == 'push'
         run: |
           if [[ ${{ github.ref }} == "refs/heads/develop" ]]; then
-            npx cdk deploy DevOtsukareStack
+            npx cdk deploy DevOtsukareStack --require-approval never
           elif [[ ${{ github.ref }} == "refs/heads/master" ]]; then
-            npx cdk deploy PrdOtsukareStack
+            npx cdk deploy PrdOtsukareStack --require-approval never
           fi
