@@ -1,3 +1,6 @@
+AWS CDK / GitHub Actions 単一アカウントで環境を分けたデプロイ  
+https://zenn.dev/iret/articles/cdk-env-20241005
+
 # 動作
 ## develop
 developブランチへプルリク Devスタックでdiff
